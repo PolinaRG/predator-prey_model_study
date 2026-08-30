@@ -7,7 +7,7 @@ steady_state_prey = betta / d;
 steady_state_predator = alpha / c;
 
 tspan = [0, 30];
-y0 = [0.8 * prey_number_stable, 1.2 * predator_number_stable];
+y0 = [0.8 * steady_state_prey, 1.2 * steady_state_predator];
 [t, y] = ode45(@(t, y) lotka_volterra_ode(t, y, alpha, betta, c, d), tspan, y0);
 
 figure;
