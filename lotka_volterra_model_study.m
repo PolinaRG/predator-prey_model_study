@@ -11,7 +11,9 @@ y0 = [0.8 * prey_number_stable, 1.2 * predator_number_stable];
 [t, y] = ode45(@(t, y) lotka_volterra_ode(t, y, alpha, betta, c, d), tspan, y0);
 
 figure;
-plot(t, y(:, 1), 'Color', '#2BB735', 'LineWidth', 2, t, y(:, 2), 'Color', '#FF0000', 'LineWidth', 2)
+title('Prey and predator population over time')
+hold on
+plot(t, y(:, 1), 'Color', '#2BB735', 'LineWidth', 2, t, y(:, 2), 'Color', '#0135E7', 'LineWidth', 2)
 xlabel('time, years')
 ylabel('population')
 grid on
@@ -19,5 +21,5 @@ hold on
 
 y0_steady_state = [steady_state_prey, steady_state_predator];
 [t_steady_sate, y_steady_state] = ode45(@(t, y) lotka_volterra_ode(t, y, alpha, betta, c, d), tspan, y0_steady_state);
-plot(t_steady_sate, y_steady_state(:, 1), 'Color', '#FEAB12', t_steady_sate, y_steady_state(:, 2), 'Color', '#0135E7')
+plot(t_steady_sate, y_steady_state(:, 1), 'Color', '#FEAB12', t_steady_sate, y_steady_state(:, 2), 'Color', '#FF0000')
 legend('prey (rabbits)', 'predator (foxes)', 'steady state: prey', 'steady state: predator')
