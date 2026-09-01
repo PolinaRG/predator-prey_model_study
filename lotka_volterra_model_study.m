@@ -35,11 +35,25 @@ min_years_predators = round(t(bottoms_indices_predators));
 mean_period_preys = mean(diff(max_years_preys));
 mean_period_predators = mean(diff(min_years_predators));
 
-tspan_phase = peak_indices_preys(1):peak_indices_preys(2);
-figure;
-plot(y(tspan_phase, 1), y(tspan_phase, 2))
-title('Phase-space plot for prey and predator populations')
-xlabel('prey population')
-ylabel('predator population')
-grid on
-hold on
+plot_phase_space_plot(alpha, betta, c, d, round([steady_state_prey, steady_state_predator] * 0.1), tspan, 5)
+
+function plot_phase_space_plot(alpha, betta, c, d, y0_step, tspan, curves_num)
+
+  figure;
+  title('Phase-space plot for prey and predator populations')
+  xlabel('prey population')
+  ylabel('predator population')
+  grid on
+  hold on
+
+  y0 = [betta / d, alpha / c];
+  for i = 1:1:curves_num
+    [t, y] = ode45(@(t, y) lotka_volterra_ode(t, y, alpha, betta, c, d), tspan, y0);
+    [peaks_preys, peak_indices_preys] = findpeaks(y(:, 1));
+    tspan_phase = peak_indices_preys(1):peak_indices_preys(2);
+    plot(y(tspan_phase, 1), y(tspan_phase, 2))
+    hold on
+    y0 = y0 + y0_step;
+  end
+
+end
