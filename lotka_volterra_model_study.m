@@ -12,9 +12,8 @@ y0 = [0.8 * steady_state_prey, 1.2 * steady_state_predator];
 [t, y] = ode45(@(t, y) lotka_volterra_ode(t, y, alpha, betta, c, d), tspan, y0);
 
 figure;
-title('Prey and predator population over time')
-hold on
 plot(t, y(:, 1), 'Color', '#2BB735', 'LineWidth', 2, t, y(:, 2), 'Color', '#0135E7', 'LineWidth', 2)
+title('Prey and predator population over time')
 xlabel('time, years')
 ylabel('population')
 grid on
