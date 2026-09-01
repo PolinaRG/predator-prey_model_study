@@ -7,7 +7,7 @@ steady_state_prey = betta / d;
 steady_state_predator = alpha / c;
 
 tspan_years = 30;
-tspan = [0, tspan_years];
+tspan = 0:0.05:tspan_years;
 y0 = [0.8 * steady_state_prey, 1.2 * steady_state_predator];
 [t, y] = ode45(@(t, y) lotka_volterra_ode(t, y, alpha, betta, c, d), tspan, y0);
 
@@ -35,3 +35,12 @@ min_years_predators = round(t(bottoms_indices_predators));
 
 mean_period_preys = mean(diff(max_years_preys));
 mean_period_predators = mean(diff(min_years_predators));
+
+tspan_phase = peak_indices_preys(1):peak_indices_preys(2);
+figure;
+plot(y(tspan_phase, 1), y(tspan_phase, 2))
+title('Phase-space plot for prey and predator populations')
+xlabel('prey population')
+ylabel('predator population')
+grid on
+hold on
