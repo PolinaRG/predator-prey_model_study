@@ -19,3 +19,4 @@ plot_phase_space_for_lv_model(alpha, betta, c, d, round(steady_state * 0.1), n_y
 ##d = 0.1;
 ##
 ##study_lotka_volterra_model(alpha, betta, c, d, 100, [10, 10])
+##plot_phase_space_for_lv_model(alpha, betta, c, d, [2, 2], 100, 5)
