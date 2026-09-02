@@ -46,7 +46,7 @@ function plot_phase_space_plot(alpha, betta, c, d, y0_step, tspan, curves_num)
   hold on
 
   y0 = [betta / d, alpha / c];
-  for i = 1:1:curves_num
+  for i = 1:curves_num
     [t, y] = ode45(@(t, y) lotka_volterra_ode(t, y, alpha, betta, c, d), tspan, y0);
     [peaks_preys, peak_indices_preys] = findpeaks(y(:, 1));
     tspan_phase = peak_indices_preys(1):peak_indices_preys(2);
