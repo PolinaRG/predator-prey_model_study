@@ -2,12 +2,11 @@
 % betta is predator death rate: d(N_predator) / dt ~ -betta * N_predator
 % c shows how predator population affects the growth of prey population (negative effect)
 % d shows how prey population affects the growth of predator population (positive effect)
-function study_lotka_volterra_model(alpha, betta, c, d, tspan_years, y0_part_of_steady_state)
+function study_lotka_volterra_model(alpha, betta, c, d, tspan_years, y0)
   steady_state_prey = betta / d;
   steady_state_predator = alpha / c;
 
   tspan = 0:0.05:tspan_years;
-  y0 = [steady_state_prey, steady_state_predator] .* y0_part_of_steady_state;
   [t, y] = ode45(@(t, y) lotka_volterra_ode(t, y, alpha, betta, c, d), tspan, y0);
 
   figure;
