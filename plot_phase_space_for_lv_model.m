@@ -1,0 +1,26 @@
+function plot_phase_space_for_lv_model(alpha, betta, c, d, y0_step, tspan_years, curves_num)
+
+  figure;
+  title('Phase-space plot for prey and predator populations')
+  xlabel('prey population')
+  ylabel('predator population')
+  grid on
+  hold on
+
+  y0 = [betta / d, alpha / c];
+  tspan = 0:0.05:tspan_years;
+  for i = 1:curves_num
+    [t, y] = ode45(@(t, y) lotka_volterra_ode(t, y, alpha, betta, c, d), tspan, y0);
+    [peaks_preys, peak_indices_preys] = findpeaks(y(:, 1));
+    tspan_phase = peak_indices_preys(1):peak_indices_preys(2);
+    curve_label = sprintf('y0: (%d, %d)', y0(1), y0(2));
+    marker = 'none';
+    if all(y(tspan_phase, 1) - y(1, 1) < 0.001)
+      marker = 'x';
+    end
+    plot(y(tspan_phase, 1), y(tspan_phase, 2), 'Marker', marker, 'DisplayName', curve_label)
+    hold on
+    y0 = y0 + y0_step;
+  end
+  legend('show');
+end
