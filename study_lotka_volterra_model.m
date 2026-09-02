@@ -51,7 +51,11 @@ function plot_phase_space_plot(alpha, betta, c, d, y0_step, tspan, curves_num)
     [peaks_preys, peak_indices_preys] = findpeaks(y(:, 1));
     tspan_phase = peak_indices_preys(1):peak_indices_preys(2);
     curve_label = sprintf('y0: (%d, %d)', y0(1), y0(2));
-    plot(y(tspan_phase, 1), y(tspan_phase, 2), 'DisplayName', curve_label)
+    marker = 'none';
+    if all(y(tspan_phase, 1) - y(1, 1) < 0.001)
+      marker = 'x';
+    end
+    plot(y(tspan_phase, 1), y(tspan_phase, 2), 'Marker', marker, 'DisplayName', curve_label)
     hold on
     y0 = y0 + y0_step;
   end
