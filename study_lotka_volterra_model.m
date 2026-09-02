@@ -1,41 +1,43 @@
-alpha = 5;      % alpha is prey birth rate: d(N_prey)/dt ~ alpha * N_prey
-betta = 0.5;    % betta is predator death rate: d(N_predator) / dt ~ -betta * N_predator
-c = 0.5;        % c shows how predator population affects the growth of prey population (negative effect)
-d = 0.01;      % d shows how prey population affects the growth of predator population (positive effect)
+function study_lotka_volterra_model()
+  alpha = 5;      % alpha is prey birth rate: d(N_prey)/dt ~ alpha * N_prey
+  betta = 0.5;    % betta is predator death rate: d(N_predator) / dt ~ -betta * N_predator
+  c = 0.5;        % c shows how predator population affects the growth of prey population (negative effect)
+  d = 0.01;      % d shows how prey population affects the growth of predator population (positive effect)
 
-steady_state_prey = betta / d;
-steady_state_predator = alpha / c;
+  steady_state_prey = betta / d;
+  steady_state_predator = alpha / c;
 
-tspan_years = 30;
-tspan = 0:0.05:tspan_years;
-y0 = [0.8 * steady_state_prey, 1.2 * steady_state_predator];
-[t, y] = ode45(@(t, y) lotka_volterra_ode(t, y, alpha, betta, c, d), tspan, y0);
+  tspan_years = 30;
+  tspan = 0:0.05:tspan_years;
+  y0 = [0.8 * steady_state_prey, 1.2 * steady_state_predator];
+  [t, y] = ode45(@(t, y) lotka_volterra_ode(t, y, alpha, betta, c, d), tspan, y0);
 
-figure;
-plot(t, y(:, 1), 'Color', '#2BB735', 'LineWidth', 2, t, y(:, 2), 'Color', '#0135E7', 'LineWidth', 2)
-title('Prey and predator population over time')
-xlabel('time, years')
-ylabel('population')
-grid on
-hold on
+  figure;
+  plot(t, y(:, 1), 'Color', '#2BB735', 'LineWidth', 2, t, y(:, 2), 'Color', '#0135E7', 'LineWidth', 2)
+  title('Prey and predator population over time')
+  xlabel('time, years')
+  ylabel('population')
+  grid on
+  hold on
 
-y0_steady_state = [steady_state_prey, steady_state_predator];
-[t_steady_sate, y_steady_state] = ode45(@(t, y) lotka_volterra_ode(t, y, alpha, betta, c, d), tspan, y0_steady_state);
-plot(t_steady_sate, y_steady_state(:, 1), 'Color', '#FEAB12', t_steady_sate, y_steady_state(:, 2), 'Color', '#FF0000')
-legend('prey (rabbits)', 'predator (foxes)', 'steady state: prey', 'steady state: predator')
+  y0_steady_state = [steady_state_prey, steady_state_predator];
+  [t_steady_sate, y_steady_state] = ode45(@(t, y) lotka_volterra_ode(t, y, alpha, betta, c, d), tspan, y0_steady_state);
+  plot(t_steady_sate, y_steady_state(:, 1), 'Color', '#FEAB12', t_steady_sate, y_steady_state(:, 2), 'Color', '#FF0000')
+  legend('prey (rabbits)', 'predator (foxes)', 'steady state: prey', 'steady state: predator')
 
-[peaks_preys, peak_indices_preys] = findpeaks(y(:, 1));
-max_years_preys = round(t(peak_indices_preys));
+  [peaks_preys, peak_indices_preys] = findpeaks(y(:, 1));
+  max_years_preys = round(t(peak_indices_preys));
 
-extra_positive_addition = max(y(:, 2)) + 1;
-[~, bottoms_indices_predators] = findpeaks(extra_positive_addition - y(:, 2));
-bottoms_predators = y(bottoms_indices_predators, 2);
-min_years_predators = round(t(bottoms_indices_predators));
+  extra_positive_addition = max(y(:, 2)) + 1;
+  [~, bottoms_indices_predators] = findpeaks(extra_positive_addition - y(:, 2));
+  bottoms_predators = y(bottoms_indices_predators, 2);
+  min_years_predators = round(t(bottoms_indices_predators));
 
-mean_period_preys = mean(diff(max_years_preys));
-mean_period_predators = mean(diff(min_years_predators));
+  mean_period_preys = mean(diff(max_years_preys));
+  mean_period_predators = mean(diff(min_years_predators));
 
-plot_phase_space_plot(alpha, betta, c, d, round([steady_state_prey, steady_state_predator] * 0.1), tspan, 5)
+  plot_phase_space_plot(alpha, betta, c, d, round([steady_state_prey, steady_state_predator] * 0.1), tspan, 5)
+end
 
 function plot_phase_space_plot(alpha, betta, c, d, y0_step, tspan, curves_num)
 
