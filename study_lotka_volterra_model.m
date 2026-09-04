@@ -9,18 +9,10 @@ function study_lotka_volterra_model(alpha, betta, c, d, tspan_years, y0)
   tspan = 0:0.05:tspan_years;
   [t, y] = ode45(@(t, y) lotka_volterra_ode(t, y, alpha, betta, c, d), tspan, y0);
 
-  figure;
-  plot(t, y(:, 1), 'Color', '#2BB735', 'LineWidth', 2, t, y(:, 2), 'Color', '#0135E7', 'LineWidth', 2)
-  title('Prey and predator population over time')
-  xlabel('time, years')
-  ylabel('population')
-  grid on
-  hold on
-
   y0_steady_state = [steady_state_prey, steady_state_predator];
   [t_steady_sate, y_steady_state] = ode45(@(t, y) lotka_volterra_ode(t, y, alpha, betta, c, d), tspan, y0_steady_state);
-  plot(t_steady_sate, y_steady_state(:, 1), 'Color', '#FEAB12', t_steady_sate, y_steady_state(:, 2), 'Color', '#FF0000')
-  legend('prey (rabbits)', 'predator (foxes)', 'steady state: prey', 'steady state: predator')
+
+  plot_in_common_axes(t, y, t_steady_sate, y_steady_state)
 
   [peaks_preys, peak_indices_preys] = findpeaks(y(:, 1));
   max_years_preys = round(t(peak_indices_preys));
@@ -32,4 +24,17 @@ function study_lotka_volterra_model(alpha, betta, c, d, tspan_years, y0)
 
   mean_period_preys = mean(diff(max_years_preys));
   mean_period_predators = mean(diff(min_years_predators));
+end
+
+function plot_in_common_axes(t, y, t_steady_sate, y_steady_state)
+  figure;
+  plot(t, y(:, 1), 'Color', '#2BB735', 'LineWidth', 2, t, y(:, 2), 'Color', '#0135E7', 'LineWidth', 2)
+  title('Prey and predator population over time')
+  xlabel('time, years')
+  ylabel('population')
+  grid on
+  hold on
+
+  plot(t_steady_sate, y_steady_state(:, 1), 'Color', '#FEAB12', t_steady_sate, y_steady_state(:, 2), 'Color', '#FF0000')
+  legend('prey (rabbits)', 'predator (foxes)', 'steady state: prey', 'steady state: predator')
 end
