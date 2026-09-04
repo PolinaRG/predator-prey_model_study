@@ -14,6 +14,7 @@ function study_lotka_volterra_model(alpha, betta, c, d, tspan_years, y0)
 
   plot_in_common_axes(t, y, t_steady_sate, y_steady_state)
   plot_in_subplots(t, y, t_steady_sate, y_steady_state)
+  plot_in_two_axes(t, y)
 
   [peaks_preys, peak_indices_preys] = findpeaks(y(:, 1));
   max_years_preys = round(t(peak_indices_preys));
@@ -60,4 +61,20 @@ function plot_in_subplots(t, y, t_steady_sate, y_steady_state)
   grid on
   hold on
   plot(t_steady_sate, y_steady_state(:, 2), 'Color', '#FF0000')
+end
+
+function plot_in_two_axes(t, y)
+  figure;
+  [axes, h1, h2] = plotyy(t, y(:, 1), t, y(:, 2));
+  title('Prey and predator population over time');
+  xlabel(axes(1), 'time, years');
+  ylabel(axes(1), 'prey population')
+  ylabel(axes(2), 'predator population')
+  grid on
+  hold on
+
+  set(h1, 'Color', '#2BB735');
+  set(axes(1), 'YColor', '#2BB735')
+  set(h2, 'Color', '#0135E7');
+  set(axes(2), 'YColor', '#0135E7')
 end
