@@ -9,7 +9,9 @@ steady_state = [betta / d, alpha / c];
 
 y0 = steady_state .* [0.8, 1.2];
 
-study_lotka_volterra_model(alpha, betta, c, d, n_years, y0)
+palette = containers.Map({'prey', 'predator', 'prey_steady_state', 'predator_steady_state'}, {'#2BB735', '#0135E7', '#FEAB12', '#FF0000'});
+
+study_lotka_volterra_model(alpha, betta, c, d, n_years, y0, palette)
 plot_phase_space_for_lv_model(alpha, betta, c, d, [10, 5], n_years, 5)
 
 % numerical experiment with parameters proposed on https://en.wikipedia.org/wiki/Lotka-Volterra_equations
