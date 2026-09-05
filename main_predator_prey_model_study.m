@@ -11,5 +11,7 @@ y0 = steady_state .* [0.8, 1.2];
 
 palette = containers.Map({'prey', 'predator', 'prey_steady_state', 'predator_steady_state'}, {'#2BB735', '#0135E7', '#FEAB12', '#FF0000'});
 
-study_lotka_volterra_model(model, n_years, y0, palette)
-plot_phase_space_for_lv_model(model, [10, 5], n_years, 5)
+titles = set_title_dictionary('EN');
+
+study_lotka_volterra_model(model, n_years, y0, titles, palette)
+plot_phase_space_for_lv_model(model, [10, 5], n_years, 5, titles)

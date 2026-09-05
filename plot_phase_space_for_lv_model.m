@@ -1,9 +1,9 @@
-function plot_phase_space_for_lv_model(model, y0_step, tspan_years, curves_num)
+function plot_phase_space_for_lv_model(model, y0_step, tspan_years, curves_num, titles)
 
   figure;
-  title('Phase-space plot for prey and predator populations')
-  xlabel('prey population')
-  ylabel('predator population')
+  title(titles('phase_plot_title'))
+  xlabel(titles('prey_axis_label'))
+  ylabel(titles('predator_axis_label'))
   grid on
   hold on
 
