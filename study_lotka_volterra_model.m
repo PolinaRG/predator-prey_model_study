@@ -2,15 +2,15 @@
 % betta is predator death rate: d(N_predator) / dt ~ -betta * N_predator
 % c shows how predator population affects the growth of prey population (negative effect)
 % d shows how prey population affects the growth of predator population (positive effect)
-function study_lotka_volterra_model(alpha, betta, c, d, tspan_years, y0, palette)
-  steady_state_prey = betta / d;
-  steady_state_predator = alpha / c;
+function study_lotka_volterra_model(model, tspan_years, y0, palette)
+  steady_state_prey = model.betta / model.d;
+  steady_state_predator = model.alpha / model.c;
 
   tspan = 0:0.05:tspan_years;
-  [t, y] = ode45(@(t, y) lotka_volterra_ode(t, y, alpha, betta, c, d), tspan, y0);
+  [t, y] = ode45(@(t, y) lotka_volterra_ode(t, y, model.alpha, model.betta, model.c, model.d), tspan, y0);
 
   y0_steady_state = [steady_state_prey, steady_state_predator];
-  [t_steady_sate, y_steady_state] = ode45(@(t, y) lotka_volterra_ode(t, y, alpha, betta, c, d), tspan, y0_steady_state);
+  [t_steady_sate, y_steady_state] = ode45(@(t, y) lotka_volterra_ode(t, y, model.alpha, model.betta, model.c, model.d), tspan, y0_steady_state);
 
   plot_in_common_axes(t, y, t_steady_sate, y_steady_state, palette)
   plot_in_subplots(t, y, t_steady_sate, y_steady_state, palette)
