@@ -38,7 +38,7 @@ function plot_in_common_axes(t, y, t_steady_sate, y_steady_state, titles, palett
   hold on
 
   plot(t_steady_sate, y_steady_state(:, 1), 'Color', palette('prey_steady_state'), t_steady_sate, y_steady_state(:, 2), 'Color', palette('predator_steady_state'))
-  legend(titles('legend_prey'), titles('legend_predator'), titles('legend_prey_steady'), titles('legend_predator_steady'))
+  legend(titles('legend_prey'), titles('legend_predator'), titles('legend_prey_steady'), titles('legend_predator_steady'), 'location', 'northeastoutside')
 end
 
 function plot_in_subplots(t, y, t_steady_sate, y_steady_state, titles, palette)
