@@ -3,11 +3,11 @@ model.betta = 0.5;
 model.c = 0.5;
 model.d = 0.01;
 
-n_years = 30;
+n_years = 20;
 
 steady_state = [model.betta / model.d, model.alpha / model.c];
 
-y0 = steady_state .* [0.8, 1.2];
+y0 = steady_state .* [1.2, 1.2];
 
 palette = containers.Map({'prey', 'predator', 'prey_steady_state', 'predator_steady_state'}, {'#2BB735', '#0135E7', '#FEAB12', '#FF0000'});
 
