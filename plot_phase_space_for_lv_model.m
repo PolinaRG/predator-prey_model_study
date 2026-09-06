@@ -8,7 +8,7 @@ function plot_phase_space_for_lv_model(model, y0_step, tspan_years, curves_num, 
   hold on
 
   y0 = [model.betta / model.d, model.alpha / model.c];
-  tspan = 0:0.05:tspan_years;
+  tspan = 0:0.01:tspan_years;
   for i = 1:curves_num
     [t, y] = ode45(@(t, y) lotka_volterra_ode(t, y, model.alpha, model.betta, model.c, model.d), tspan, y0);
     [peaks_preys, peak_indices_preys] = findpeaks(y(:, 1));
