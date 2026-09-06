@@ -1,7 +1,7 @@
 model.alpha = 5;
 model.betta = 0.5;
 model.c = 0.5;
-model.d = 0.005;
+model.d = 0.01;
 
 n_years = 30;
 
